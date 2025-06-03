@@ -1,13 +1,11 @@
 
 this is my personal website —  
-a space for cute code, soft aesthetics, and playful experiments.
 ---
 ## ☁️ about me
 i'm @skylarmyers69420  
-- 🧁 pink code dreams  
-- 🎀 always learning, always making  
-- 🖇️ into clean design, cozy layouts, and terminal vibes  
-- 💌 here to share, not to impress
+- he/him
+- queer
+- works with IT! <3
 ---
 ## 🌐 live preview
 
