@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ph0enix</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      font-family: 'Courier New', Courier, monospace;
+      color: #00ff00;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .terminal {
+      position: relative;
+      z-index: 1;
+      width: 80%;
+      max-width: 800px;
+      margin: 100px auto;
+      border: 2px solid #00ff00;
+      padding: 20px;
+      box-shadow: 0 0 20px #00ff00;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .cursor {
+      display: inline-block;
+      background-color: #00ff00;
+      width: 10px;
+      height: 1.2em;
+      animation: blink 1s infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .menu {
+      margin-top: 20px;
+      border-top: 1px solid #00ff00;
+      padding-top: 10px;
+      display: none;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #00ff00;
+      z-index: 1;
+      text-shadow: 0 0 5px #00ff00;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<div class="terminal">
+  <p id="line">root@ph0enixadmin:~$ <span class="cursor" id="cursor"></span></p>
+  <div class="menu" id="menu">
+    <p>[ No options available ]</p>
+  </div>
+</div>
+
+<div class="footer">
+  made with &lt;3 by @skylarmyers69420
+</div>
+
+<script>
+  // Matrix Background
+  const canvas = document.getElementById("matrixCanvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const binary = "01";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+  const drops = Array(Math.floor(columns)).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#00ff00";
+    ctx.font = `${fontSize}px monospace`;
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = binary[Math.floor(Math.random() * binary.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  setInterval(drawMatrix, 50);
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Typing Effect
+  const line = document.getElementById('line');
+  const cursor = document.getElementById('cursor');
+  const menu = document.getElementById('menu');
+
+  const message = "Welcome to ph0enix.org, wait while I load the menu...";
+  let i = 0;
+
+  function typeNextChar() {
+    if (i < message.length) {
+      line.innerHTML = `root@ph0enixadmin:~$ ${message.substring(0, i + 1)}<span class="cursor" id="cursor"></span>`;
+      i++;
+      setTimeout(typeNextChar, 50);
+    } else {
+      // After typing is done, wait and then show the menu
+      setTimeout(() => {
+        menu.style.display = 'block';
+        cursor.style.display = 'none';
+      }, 1500);
+    }
+  }
+
+  typeNextChar();
+</script>
+
+</body>
+</html>
