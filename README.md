@@ -3,7 +3,7 @@ this is my personal website —
 ---
 ## ☁️ about me
 i'm @skylarmyers69420  
-- he/him
+- she/her
 - queer
 - works with IT! <3
 ---
